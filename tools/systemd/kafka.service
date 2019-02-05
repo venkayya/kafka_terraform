@@ -1,0 +1,16 @@
+[Unit]
+Description=Apache Kafka server (broker)
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Environment="KAFKA_OPTS=-javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.11.0.jar=8080:/opt/prometheus/kafka-2_0_0.yml"
+ExecStart=/opt/kafka_2.11-${kafka_version}/bin/kafka-server-start.sh /opt/kafka_2.11-${kafka_version}/config/server.properties
+ExecStop=/opt/kafka_2.11-${kafka_version}/bin/kafka-server-stop.sh
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

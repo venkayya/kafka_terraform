@@ -1,0 +1,13 @@
+[Unit]
+Description=Zookeeper Service
+
+[Service]
+Type=forking
+User=root
+Group=root
+ExecStart=/opt/zookeeper-3.4.12/bin/zkServer.sh start
+ExecStop=/opt/zookeeper-3.4.12/bin/zkServer.sh stop
+SuccessExitStatus=130 143
+
+[Install]
+WantedBy=multi-user.target
