@@ -19,6 +19,7 @@ resource "google_compute_instance" "zk" {
   name         = "zk${count.index + 1}"
   machine_type = "${var.zk_machine_type}"
   zone         = "${var.zone}"
+  tags         = ["${module.nat.routing_tag_regional}", "${module.nat.routing_tag_zonal}"]
 
   boot_disk {
     initialize_params {
@@ -34,10 +35,6 @@ resource "google_compute_instance" "zk" {
   network_interface {
     subnetwork = "${google_compute_subnetwork.test_subnet_priv.name}"
     network_ip = "${element(google_compute_address.zk_int_address.*.address, count.index)}"
-
-    access_config {
-      // Ephemeral IP
-    }
   }
 
   metadata_startup_script = "${data.template_file.zk_startup_script.rendered}"

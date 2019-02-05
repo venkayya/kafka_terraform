@@ -3,6 +3,7 @@ resource "google_compute_instance" "kf_zk_monitor" {
   name         = "adminbox1"
   machine_type = "${var.admin_machine_type}"
   zone         = "${var.zone}"
+  tags         = ["monitoring"]
 
   boot_disk {
     initialize_params {

@@ -15,6 +15,7 @@ resource "google_compute_instance" "kafka" {
   name         = "kafka${count.index + 1}"
   machine_type = "${var.kafka_machine_type}"
   zone         = "${var.zone}"
+  tags         = ["${module.nat.routing_tag_regional}", "${module.nat.routing_tag_zonal}"]
 
   boot_disk {
     initialize_params {
@@ -24,10 +25,6 @@ resource "google_compute_instance" "kafka" {
 
   network_interface {
     subnetwork = "${google_compute_subnetwork.test_subnet_priv.name}"
-
-    access_config {
-      // Ephemeral IP
-    }
   }
 
   metadata_startup_script = "${data.template_file.kafka_startup_script.rendered}"

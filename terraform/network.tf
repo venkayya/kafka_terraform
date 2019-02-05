@@ -120,7 +120,7 @@ resource "google_compute_firewall" "zoo_navigator_api" {
 
   source_ranges = ["0.0.0.0/0"]
 }
-/*
+
 module "nat" {
   source        = "github.com/GoogleCloudPlatform/terraform-google-nat-gateway"
   project       = "${var.project}"
@@ -131,4 +131,3 @@ module "nat" {
   subnetwork    = "${google_compute_subnetwork.test_subnet_priv.name}"
   compute_image = "projects/debian-cloud/global/images/family/debian-9"
 }
-*/
