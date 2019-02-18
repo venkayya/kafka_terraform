@@ -35,6 +35,9 @@ variable kafka_machine_type {
 variable admin_machine_type {
   default = "n1-standard-1"
 }
+variable kerberos_machine_type {
+  default = "n1-standard-2"
+}
 variable kafka_log_dir {
   default = "/opt/kafka-logs"
 }

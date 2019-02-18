@@ -15,6 +15,7 @@ resource "google_compute_address" "zk_int_address" {
 }
 
 resource "google_compute_instance" "zk" {
+  depends_on   = ["google_compute_instance.kerberos"]
   count        = "${var.zk_node_count}"
   name         = "zk${count.index + 1}"
   machine_type = "${var.zk_machine_type}"
@@ -41,7 +42,7 @@ resource "google_compute_instance" "zk" {
 }
 
 data "template_file" "zk_startup_script" {
-  template = "${file("../tools/config/zoo.conf")}"
+  template = "${file("../config/zoo.sh")}"
   vars {
     zk_version    = "${var.zk_version}"
     zk1_ip        = "${google_compute_address.zk_int_address.0.address}"

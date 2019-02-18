@@ -23,7 +23,7 @@ resource "google_compute_instance" "kf_zk_monitor" {
 }
 
 data "template_file" "prom_startup_script" {
-  template = "${file("../tools/config/admin.conf")}"
+  template = "${file("../config/admin.sh")}"
 
   vars{
     DOCKER_URL="https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64"

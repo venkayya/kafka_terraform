@@ -1,5 +1,5 @@
 data "template_file" "kafka_startup_script" {
-  template = "${file("../tools/config/kafka.conf")}"
+  template = "${file("../config/kafka.sh")}"
   vars {
     kafka_version = "${var.kafka_version}"
     zk1_ip        = "${google_compute_address.zk_int_address.0.address}"
