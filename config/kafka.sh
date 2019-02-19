@@ -8,7 +8,7 @@
 sudo apt-get update -y
 sudo dpkg --purge --force-depends ca-certificates-java \
 && sudo apt-get install -y ca-certificates-java \
-&& sudo apt-get install -y openjdk-8-jdk \
+&& sudo apt-get install -y openjdk-11-jdk \
 && sudo apt-get install wget -y \
 && export DEBAIN_FRONTEND=noninteractive; sudo apt-get install -y krb5-user
 
@@ -146,22 +146,26 @@ advertised.listeners=PLAINTEXT://$(hostname -f):9092,SSL://$(hostname -f):9093,S
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
 #listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
 
-# sasl specific configuration
-security.inter.broker.protocol=SASL_SSL
-#security.inter.broker.protocol=SASL_PLAINTEXT
-sasl.mechanism.inter.broker.protocol=GSSAPI
-sasl.enabled.mechanism=GSSAPI
-sasl.kerberos.service.name=kafka
-
 # ssl specific configuration
+ssl.client.auth=required
+ssl.enabled.protocols=TLSv1.2,TLSv1.1,TLSv1
 ssl.keystore.location=/opt/security/ssl/kafka.server.keystore.jks
 ssl.keystore.password=serversecret
 ssl.key.password=serversecret
 ssl.truststore.location=/opt/security/ssl/kafka.server.truststore.jks
 ssl.truststore.password=serversecret
 
+# sasl specific configuration
+security.inter.broker.protocol=SASL_SSL
+#security.inter.broker.protocol=SASL_PLAINTEXT
+#security.inter.broker.protocol=SSL
+sasl.mechanism.inter.broker.protocol=GSSAPI
+sasl.enabled.mechanism=GSSAPI
+sasl.kerberos.service.name=kafka
+
+
 # The number of threads that the server uses for receiving requests from the network and sending responses to the network
-num.network.threads=3
+num.network.threads=10
 
 # The number of threads that the server uses for processing requests, which may include disk I/O
 num.io.threads=8
@@ -193,9 +197,9 @@ num.recovery.threads.per.data.dir=1
 ############################# Internal Topic Settings  #############################
 # The replication factor for the group metadata internal topics "__consumer_offsets" and "__transaction_state"
 # For anything other than development testing, a value greater than 1 is recommended for to ensure availability such as 3.
-offsets.topic.replication.factor=1
-transaction.state.log.replication.factor=1
-transaction.state.log.min.isr=1
+offsets.topic.replication.factor=3
+transaction.state.log.replication.factor=3
+transaction.state.log.min.isr=3
 
 ############################# Log Flush Policy #############################
 
