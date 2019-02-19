@@ -13,7 +13,7 @@
   * [Authenticate gcloud](#authenticate-gcloud)
   * [Configure gcloud settings](#configuring-gcloud-settings)
   * [Setup this project](#setup-this-project)
-  * [Provisioning the compute instances](#Provisioning the compute instances)
+  * [Provisioning the compute instances](#Provisioning-the-compute-instances)
 * [Tear Down](#tear-down)
 * [Troubleshooting](#troubleshooting)
 * [Relevant Material](#relevant-material)
@@ -22,13 +22,13 @@
 
 ## Introduction
 
-This guide demonstrates how to create a kafka cluster with default size `3X3` and kerberos it with kerberos,
+This guide demonstrates how to create a kafka cluster with default size `3X3` also this will guide us on setting security for the cluster using kerberos and ssl.
 
-Kafka nodes - 3
-zookeeper nodes - 3
-schema registry - 1
-administrator node - 1
-kerberos node - 1
+1. Kafka nodes - 3
+2. zookeeper nodes - 3
+3. schema registry - 1
+4. administrator node - 1
+5. kerberos node - 1
 
 ## Prerequisites
 
