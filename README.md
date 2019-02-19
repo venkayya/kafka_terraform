@@ -13,7 +13,7 @@
   * [Authenticate gcloud](#authenticate-gcloud)
   * [Configure gcloud settings](#configuring-gcloud-settings)
   * [Setup this project](#setup-this-project)
-  * [Provisioning the compute instances](#provisioning-the-kubernetes-engine-cluster)
+  * [Provisioning the compute instances](#Provisioning the compute instances)
 * [Tear Down](#tear-down)
 * [Troubleshooting](#troubleshooting)
 * [Relevant Material](#relevant-material)
