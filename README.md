@@ -111,19 +111,22 @@ If you need to override any of the defaults, simply replace the desired value(s)
 
 ### Provisioning the compute instances
 
-Next, apply the terraform configuration with:
+```console
+# Changing into terraform directory, initialize terraform dependencies.
+cd terraform \
+   && terraform init
+```
 
 ```console
-# From within the project root, use make to apply the terraform plan
+# Changing into terraform directory, apply the terraform plan.
 cd terraform \
-   && terraform init && \
    && terraform apply --auto-approve
 ```
 
 ## Tear Down
 
 ```console
-# From within the project root, use make to destroy the terraform plan.
+# Changing into terraform directory, destroy the terraform plan.
 cd terraform \
    && terraform destory --auto-approve
 ```

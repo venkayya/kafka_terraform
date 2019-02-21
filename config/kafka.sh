@@ -49,7 +49,7 @@ EOF
 
 ############################## Config (for ssl) ################################
 
-SRVPASS=serversecret
+SRVPASS=2019@Naidu
 mkdir -p /opt/security/ssl
 cd /opt/security/ssl
 openssl req \
@@ -66,7 +66,7 @@ keytool -genkey \
   -validity 365 \
   -storepass $SRVPASS \
   -keypass $SRVPASS \
-  -dname "CN = $(hostname -f)" \
+  -dname "CN = Kafka-Security-CA" \
   -storetype pkcs12
 
 keytool -keystore kafka.server.keystore.jks \
@@ -136,12 +136,12 @@ broker.id=$broker_id
 #     listeners = listener_name://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://0.0.0.0:9092,SSL://0.0.0.0:9093,SASL_SSL://0.0.0.0:9094,SASL_PLAINTEXT://0.0.0.0:9095
+listeners=SSL://$(hostname -f):9092,SASL_SSL://$(hostname -f):9093
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
-advertised.listeners=PLAINTEXT://$(hostname -f):9092,SSL://$(hostname -f):9093,SASL_SSL://$(hostname -f):9094,SASL_PLAINTEXT://$(hostname -f):9095
+advertised.listeners=SSL://$(hostname -f):9092,SASL_SSL://$(hostname -f):9093
 
 # Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details
 #listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
@@ -154,9 +154,10 @@ ssl.keystore.password=serversecret
 ssl.key.password=serversecret
 ssl.truststore.location=/opt/security/ssl/kafka.server.truststore.jks
 ssl.truststore.password=serversecret
+ssl.endpoint.identification.algorithm=HTTPS
 
 # sasl specific configuration
-security.inter.broker.protocol=SASL_SSL
+security.inter.broker.protocol=SSL
 #security.inter.broker.protocol=SASL_PLAINTEXT
 #security.inter.broker.protocol=SSL
 sasl.mechanism.inter.broker.protocol=GSSAPI
